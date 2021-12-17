@@ -4,7 +4,7 @@ metadata:
 components:
   - name: nodejs
     container:
-      image: quay.io/devfile/universal-developer-image:ubi8-b452131
+      image: registry.redhat.io/codeready-workspaces/plugin-java8-rhel8
       endpoints:
         - exposure: public
           name: nodejs
@@ -21,13 +21,20 @@ commands:
       commandLine: "npm install"
       group:
         kind: build
-        isDefault: true
-  - id: runapp
+  - id: run
     exec:
       label: "Run the web app"
       component: nodejs
       workingDir: ${PROJECTS_ROOT}/web-nodejs-sample/app
       commandLine: "nodemon app.js"
+      group:
+        kind: run
+  - id: inastall-and-run
+    exec:
+      label: "Run the web app (and download dependencies)"
+      component: nodejs
+      workingDir: ${PROJECTS_ROOT}/web-nodejs-sample/app
+      commandLine: "npm install; nodemon app.js"
       group:
         kind: run
   - id: debug
