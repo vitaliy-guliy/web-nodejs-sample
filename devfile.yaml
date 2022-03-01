@@ -29,7 +29,7 @@ commands:
       commandLine: "nodemon app.js"
       group:
         kind: run
-  - id: inastall-and-run
+  - id: install-and-run
     exec:
       label: "Run the web app (and download dependencies)"
       component: nodejs
