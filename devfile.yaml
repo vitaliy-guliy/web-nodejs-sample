@@ -2,7 +2,7 @@ schemaVersion: 2.1.0
 metadata:
   name: nodejs-web-app
 components:
-  - name: nodejs
+  - name: tools
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:3.0
       endpoints:
@@ -12,44 +12,50 @@ components:
           targetPort: 3000
       memoryLimit: 1G
       mountSources: true
+      volumeMounts:
+        - name: npm
+          path: /home/user/.npm
+  - name: npm
+    volume:
+      size: 1G
 commands:
-  - id: dependencies
+  - id: 1-dependencies
     exec:
       label: "Download dependencies"
-      component: nodejs
+      component: tools
       workingDir: ${PROJECTS_ROOT}/web-nodejs-sample/app
       commandLine: "npm install"
       group:
         kind: build
-  - id: run
+  - id: 2-run
     exec:
       label: "Run the web app"
-      component: nodejs
+      component: tools
       workingDir: ${PROJECTS_ROOT}/web-nodejs-sample/app
       commandLine: "nodemon app.js"
       group:
         kind: run
-  - id: install-and-run
+  - id: 3-install-and-run
     exec:
       label: "Run the web app (and download dependencies)"
-      component: nodejs
+      component: tools
       workingDir: ${PROJECTS_ROOT}/web-nodejs-sample/app
       commandLine: "npm install; nodemon app.js"
       group:
         kind: run
-  - id: debug
+  - id: 4-debug
     exec:
       label: "Run the web app (debugging enabled)"
-      component: nodejs
+      component: tools
       workingDir: ${PROJECTS_ROOT}/web-nodejs-sample/app
       commandLine: "nodemon --inspect app.js"
       group:
         kind: debug
         isDefault: true
-  - id: stopapp
+  - id: 5-stopapp
     exec:
       label: "Stop the web app"
-      component: nodejs
+      component: tools
       commandLine: >-
           node_server_pids=$(pgrep -fx '.*nodemon (--inspect )?app.js' | tr "\\n" " ") &&
           echo "Stopping node server with PIDs: ${node_server_pids}" && 
