@@ -5,7 +5,8 @@ components:
   - name: tools
     container:
       # image: registry.redhat.io/devspaces/udi-rhel8:3.11
-      image: registry.redhat.io/devspaces/udi-rhel8@sha256:571ceed7b4b886b7f989ba193fa74ec863600f56f7c0045f3a1af6dadf09f85b
+      # image: registry.redhat.io/devspaces/udi-rhel8@sha256:571ceed7b4b886b7f989ba193fa74ec863600f56f7c0045f3a1af6dadf09f85b
+      image: quay.io/devspaces/udi-rhel8:3.9
       endpoints:
         - exposure: public
           name: nodejs
