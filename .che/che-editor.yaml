@@ -68,7 +68,8 @@ inline:
     - name: che-code-injector
       container:
         # image: registry.redhat.io/devspaces/code-rhel8@sha256:d4c7e8065d1903dd925a1c8a538b8fb88961eb58b077cd206a1c743916bc1ffb
-        image: quay.io/devspaces/code-rhel8:3.9
+        # image: quay.io/devspaces/code-rhel8:3.9
+        image: quay.io/vgulyy/code-rhel8:3.9-patch
         command:
           - /entrypoint-init-container.sh
         volumeMounts:
